@@ -1,6 +1,6 @@
 import React from 'react'
 import { Box, Container, CssBaseline, Drawer, List, ListItem, ListItemText, ListItemButton, Typography } from '@mui/material'
-import Atributos from '../components/Atributos'
+// import Atributos from '../components/Atributos'
 
 type keysTypes = 'atributos' | 'equipamento' | 'inventario' | 'anotacoes' | 'historia'
 
@@ -9,7 +9,7 @@ function Home() {
     const drawerWidth = '15vw'
     const [selection, setSelection] = React.useState<keysTypes>('atributos')
     const sidebarItems = [
-        { id: 'atributos', label: 'Atributos', element: <Atributos /> },
+        { id: 'atributos', label: 'Atributos', },
         { id: 'equipamento', label: 'Equipamento', },
         { id: 'inventario', label: 'Inventário' },
         { id: 'anotacoes', label: 'Anotações' },
@@ -75,11 +75,11 @@ function Home() {
                     </Box>
                 </Drawer>
                 <Box bgcolor={'gray'} height={'100vh'}>
-                    {sidebarItems.map(item => {
+                    {/* {sidebarItems.map(item => {
                         if (item.id === selection) {
                             return item.element
                         }
-                    })}
+                    })} */}
                 </Box>
             </Box>
 
