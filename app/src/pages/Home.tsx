@@ -6,16 +6,16 @@ function Home() {
     const data = new FormData(event.currentTarget);
     console.log(data.get("name"));
 
-    
+
 
   };
 
   return (
-    <Container component="main" maxWidth="xs">
+    <Container component="main" maxWidth="xs" sx={{ height: '100vh',display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
       <CssBaseline />
       <Box
         sx={{
-          marginTop: 40,
+          marginTop: -20,
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',

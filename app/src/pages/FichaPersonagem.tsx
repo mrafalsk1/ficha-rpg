@@ -1,7 +1,9 @@
 import React from 'react'
-import { Box, Container, CssBaseline, Drawer, List, ListItem, ListItemText, ListItemButton, Typography } from '@mui/material'
+import { Box, Container, CssBaseline, Drawer, List, ListItem, ListItemText, ListItemButton, ListItemIcon, Typography } from '@mui/material'
 import Atributos from '../components/Atributos'
 import Atributo from '../interface/Atributo'
+import { AccountBox, MenuBook, Article, Backpack, Shield, Savings } from '@mui/icons-material'
+import { useTheme } from '@mui/material/styles';
 
 type keysTypes = 'atributos' | 'equipamento' | 'inventario' | 'anotacoes' | 'historia'
 
@@ -35,18 +37,19 @@ function Home() {
             }
         },
     ]
+    const theme = useTheme()
 
-    const drawerWidth = '15vw'
     const [selection, setSelection] = React.useState<keysTypes>('atributos')
     const sidebarItems = [
-        { id: 'atributos', label: 'Atributos', element: <Atributos key='atributos' saldoPontos={saldoPontos} atributos={atributos} /> },
-        { id: 'equipamento', label: 'Equipamento', },
-        { id: 'inventario', label: 'Inventário' },
-        { id: 'anotacoes', label: 'Anotações' },
-        { id: 'historia', label: 'História' },
+        { id: 'atributos', label: 'Atributos', element: <Atributos key={'atributos'} saldoPontos={saldoPontos} atributos={atributos} />, icon: <AccountBox style={{ color: selection == 'atributos' ? theme.palette.background.paper : theme.palette.text.primary }} /> },
+        { id: 'equipamento', label: 'Equipamento', element: <div></div>, icon: <Shield style={{ color: selection == 'equipamento' ? theme.palette.background.paper : theme.palette.text.primary }} /> },
+        { id: 'inventario', label: 'Inventário', element: <div></div>, icon: <Backpack style={{ color: selection == 'inventario' ? theme.palette.background.paper : theme.palette.text.primary }} /> },
+        { id: 'anotacoes', label: 'Anotações', element: <div></div>, icon: <Article style={{ color: selection == 'anotacoes' ? theme.palette.background.paper : theme.palette.text.primary }} /> },
+        { id: 'historia', label: 'História', element: <div></div>, icon: <MenuBook style={{ color: selection == 'historia' ? theme.palette.background.paper : theme.palette.text.primary }} /> },
+
     ]
 
-    const sidebarSelection = (event: React.MouseEvent<HTMLElement>) => {
+    const handleSelection = (event: React.MouseEvent<HTMLElement>) => {
         let id = event.currentTarget.id
         console.log('hey', id)
         setSelection(id as keysTypes)
@@ -62,32 +65,24 @@ function Home() {
             }}
         >
             <CssBaseline />
-            <Box display={'flex'} >
-                <Drawer
-                    variant='permanent'
-                    sx={{
-                        width: drawerWidth,
-                        '& .MuiDrawer-paper': {
-                            // boxSizing: 'border-box',
-                            width: drawerWidth,
-                            backgroundColor: 'gray',
-                            left: 0
-                        }
-                    }}
-                >
-                    <Box>
-                        <ListItem>
-                            <ListItemText>
-                                <Typography variant='h6' textAlign={'center'}>
-                                    {nome}
-                                </Typography>
-                            </ListItemText>
-                        </ListItem>
+            <Box display={'flex'}>
+                <Drawer variant='permanent'>
+                    <Box sx={{ height: '100%' }}>
                         <List>
+                            <ListItem>
+                                <ListItemText>
+                                    <Typography variant='h6' textAlign={'center'}>
+                                        {nome}
+                                    </Typography>
+                                </ListItemText>
+                            </ListItem>
                             {sidebarItems.map(item => {
                                 return (
                                     <ListItem key={item.id}>
-                                        <ListItemButton id={item.id} onClick={sidebarSelection}>
+                                        <ListItemButton id={item.id} onClick={handleSelection} selected={item.id == selection}>
+                                            <ListItemIcon sx={{ minWidth: 35 }}>
+                                                {item.icon}
+                                            </ListItemIcon>
                                             <ListItemText>
                                                 {item.label}
                                             </ListItemText>
@@ -96,6 +91,16 @@ function Home() {
                                 )
                             })}
                         </List>
+                        <ListItem sx={{ position: 'absolute', bottom: 0, backgroundColor: '#2a2a2a' }}>
+                            <Box display={'flex'} paddingX={'16px'} paddingY={'8px'}>
+                                <ListItemIcon sx={{ minWidth: 35 }}>
+                                    <Savings style={{ color: '#ffd700' }} />
+                                </ListItemIcon>
+                                <ListItemText sx={{ color: '#ffd700' }}>
+                                    Ouro: 256
+                                </ListItemText>
+                            </Box>
+                        </ListItem>
                     </Box>
                 </Drawer>
                 <Box bgcolor={'gray'} height={'100vh'}>

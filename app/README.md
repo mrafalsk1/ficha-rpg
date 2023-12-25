@@ -4,5 +4,5 @@
 
 
 # To run project
-  - Fist install all dependecies with `npm i`
+  - First install all dependecies with `npm i`
   - And run Project with `npm run dev`
